@@ -21,6 +21,10 @@ OUTPUT_PATH = "/output/entry.txt"
 
 def main() -> int:
     text = EXCUSE.strip()
+    # The gate wants exactly one line of 1-200 characters, so refuse
+    # anything with a newline or outside the length band before writing.
+    if "\n" in text or "\r" in text:
+        raise SystemExit("excuse must be a single line")
     if not 1 <= len(text) <= 200:
         raise SystemExit(
             "excuse must be 1-200 characters, got %d" % len(text)
